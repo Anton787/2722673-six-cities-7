@@ -1,9 +1,7 @@
 import {Fragment, useState} from 'react';
 import type {FormEvent} from 'react';
 import type {ReviewInput} from '@/types/offer';
-
-const MIN_COMMENT_LENGTH = 50;
-const MAX_COMMENT_LENGTH = 300;
+import {MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, REVIEW_RATINGS} from '@/constants/review';
 
 function CommentForm() {
   const [review, setReview] = useState<ReviewInput>({comment: '', rating: 0});
@@ -16,18 +14,18 @@ function CommentForm() {
     <form className="reviews__form form" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {[5, 4, 3, 2, 1].map((rating) => (
-          <Fragment key={rating}>
+        {REVIEW_RATINGS.map(({value, title}) => (
+          <Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              value={rating}
-              id={`${rating}-stars`}
+              value={value}
+              id={`${value}-stars`}
               type="radio"
-              checked={review.rating === rating}
+              checked={review.rating === value}
               onChange={(event) => setReview((current) => ({...current, rating: Number(event.target.value)}))}
             />
-            <label htmlFor={`${rating}-stars`} className="reviews__rating-label form__rating-label" title={['perfect', 'good', 'not bad', 'badly', 'terribly'][5 - rating]}>
+            <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star" />
               </svg>
