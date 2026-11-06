@@ -4,6 +4,7 @@ import type {DetailedOffer, Offer, Review} from '@/types/offer';
 import CommentForm from '@components/comment-form/comment-form';
 import OffersList from '@components/offers-list/offers-list';
 import NotFoundPage from '@pages/not-found-page/not-found-page';
+import {MAX_NEARBY_OFFERS_COUNT} from '@/constants/offer';
 
 type OfferPageProps = {
   offers: DetailedOffer[];
@@ -21,6 +22,9 @@ function OfferPage({offers, nearbyOffers, comments, favoritesCount}: OfferPagePr
   }
 
   const offerComments = comments[offer.id] ?? [];
+  const displayedNearbyOffers = nearbyOffers
+    .filter((item) => item.id !== offer.id)
+    .slice(0, MAX_NEARBY_OFFERS_COUNT);
 
   return (
     <div className="page">
@@ -125,7 +129,7 @@ function OfferPage({offers, nearbyOffers, comments, favoritesCount}: OfferPagePr
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList offers={nearbyOffers.filter((item) => item.id !== offer.id)} variant="near-places" />
+            <OffersList offers={displayedNearbyOffers} variant="near-places" />
           </section>
         </div>
       </main>

@@ -1,6 +1,7 @@
 import Header from '@components/header/header';
 import {Offer} from '@/types/offer';
 import OffersList from '@components/offers-list/offers-list';
+import Map from '@components/map/map';
 
 type MainPageProps = {
   offers: Offer[];
@@ -73,7 +74,7 @@ function MainPage({offers, favoritesCount}: MainPageProps) {
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map city={offers[0].city} offers={offers} />
             </div>
           </div>
         </div>
