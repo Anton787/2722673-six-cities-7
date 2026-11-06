@@ -1,11 +1,15 @@
+import type {DetailedOffer, Offer, Review} from '@/types/offer';
 import AppRouter from '@router/app-router/app-router';
 
 type AppProps = {
-  offersCount: number;
+  offers: Offer[];
+  favorites: Offer[];
+  detailedOffers: DetailedOffer[];
+  comments: Record<string, Review[]>;
 };
 
-function App({offersCount}: AppProps) {
-  return <AppRouter offersCount={offersCount} />;
+function App({offers, favorites, detailedOffers, comments}: AppProps) {
+  return <AppRouter offers={offers} favorites={favorites} detailedOffers={detailedOffers} comments={comments} />;
 }
 
 export default App;
